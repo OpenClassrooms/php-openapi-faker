@@ -9,8 +9,6 @@ use Spatie\Snapshots\MatchesSnapshots;
 
 use function mt_srand;
 
-use const MT_RAND_PHP;
-
 class UnitTestCase extends TestCase
 {
     use MatchesSnapshots;
@@ -20,6 +18,6 @@ class UnitTestCase extends TestCase
         parent::setUp();
 
         // Use predefined seed, so we can make realistic assertions
-        mt_srand((int) 9175, MT_RAND_PHP);
+        mt_srand(9175);
     }
 }

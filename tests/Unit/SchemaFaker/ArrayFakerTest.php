@@ -142,7 +142,7 @@ YAML;
     /** @test */
     function it_can_generate_unique_elements()
     {
-        mt_srand(227, MT_RAND_PHP);
+        mt_srand(227);
 
         $fakeData = ArrayFaker::generate(SchemaFactory::fromJson(
             <<<'JSON'

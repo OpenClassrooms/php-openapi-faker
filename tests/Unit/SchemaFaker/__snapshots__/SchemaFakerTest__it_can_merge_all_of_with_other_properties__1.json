@@ -1,11 +1,12 @@
 {
-    "resource_id": "in",
+    "resource_id": "nobis",
     "resource_type": "tweet",
-    "section": "includes",
+    "section": "data",
     "type": "https:\/\/api.twitter.com\/labs\/1\/problems\/not-authorized-for-resource",
-    "detail": "veritatis",
-    "title": "cumque",
+    "detail": "ut",
+    "title": "dolores",
     "foo": {
-        "loop": []
+        "shiz": "2000-12-03",
+        "ship": -194250775
     }
 }
