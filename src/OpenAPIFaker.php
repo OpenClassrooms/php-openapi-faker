@@ -23,6 +23,7 @@ use Vural\OpenAPIFaker\SchemaFaker\RequestFaker;
 use Vural\OpenAPIFaker\SchemaFaker\ResponseFaker;
 use Vural\OpenAPIFaker\SchemaFaker\SchemaFaker;
 
+use function array_intersect_key;
 use function array_key_exists;
 use function strtolower;
 
@@ -155,7 +156,9 @@ final class OpenAPIFaker
     /** @param array{minItems?:?int, maxItems?:?int, alwaysFakeOptionals?:bool, strategy?:string} $options */
     public function setOptions(array $options): self
     {
-        foreach ($options as $key => $value) {
+        $knownKeys = ['minItems' => 1, 'maxItems' => 1, 'alwaysFakeOptionals' => 1, 'strategy' => 1];
+
+        foreach (array_intersect_key($options, $knownKeys) as $key => $value) {
             match ($key) {
                 'minItems'            => $value !== null ? $this->options->setMinItems($value) : null,
                 'maxItems'            => $value !== null ? $this->options->setMaxItems($value) : null,
