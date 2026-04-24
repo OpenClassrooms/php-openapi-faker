@@ -34,9 +34,12 @@ final class ObjectFaker
 
         $allPropertyKeys = array_merge($requiredKeys, $selectedOptionalKeys);
 
-        /** @var Schema $property */
         foreach ($schema->properties as $key => $property) {
-            if ($property instanceof Schema && (($request && $property->readOnly) || (! $request && $property->writeOnly))) {
+            if (! $property instanceof Schema) {
+                continue;
+            }
+
+            if (($request && $property->readOnly) || (! $request && $property->writeOnly)) {
                 continue;
             }
 

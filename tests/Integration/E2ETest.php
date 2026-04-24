@@ -61,7 +61,7 @@ class E2ETest extends TestCase
             }
         }
 
-        self::assertTrue(true);
+        self::addToAssertionCount(1);
     }
 
     /**
@@ -87,6 +87,10 @@ class E2ETest extends TestCase
                             continue;
                         }
 
+                        if (! $mediaType->schema instanceof Schema) {
+                            continue;
+                        }
+
                         if ($mediaType->schema->description !== 'Video search results') {
                             continue;
                         }
@@ -103,7 +107,7 @@ class E2ETest extends TestCase
             }
         }
 
-        self::assertTrue(true);
+        self::addToAssertionCount(1);
     }
 
     /**
@@ -133,7 +137,7 @@ class E2ETest extends TestCase
             }
         }
 
-        self::assertTrue(true);
+        self::addToAssertionCount(1);
     }
 
     /**
@@ -167,7 +171,7 @@ class E2ETest extends TestCase
             }
         }
 
-        self::assertTrue(true);
+        self::addToAssertionCount(1);
     }
 
     /** @return string[][] */

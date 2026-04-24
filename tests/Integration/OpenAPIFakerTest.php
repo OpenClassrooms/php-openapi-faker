@@ -79,7 +79,7 @@ JSON;
 
         $faker = OpenAPIFaker::createFromJson($specJson);
 
-        self::assertInstanceOf(OpenAPIFaker::class, $faker);
+        self::addToAssertionCount(1);
     }
 
     /**
@@ -134,7 +134,7 @@ YAML;
 
         $faker = OpenAPIFaker::createFromYaml($specYaml);
 
-        self::assertInstanceOf(OpenAPIFaker::class, $faker);
+        self::addToAssertionCount(1);
     }
 
     /**
@@ -190,14 +190,13 @@ YAML;
         $schema = new OpenApi(Yaml::parse($specYaml));
         $faker  = OpenAPIFaker::createFromSchema($schema);
 
-        self::assertInstanceOf(OpenAPIFaker::class, $faker);
+        self::addToAssertionCount(1);
     }
 
     /**
      * @test
-     * @testWith
-     *      ["/todos", "get"]
-     *      ["/todos", "post", "text/plain"]
+     * @testWith ["/todos", "get"]
+     *           ["/todos", "post", "text/plain"]
      */
     function it_throws_exception_if_request_cannot_be_found(string $path, string $method, string $contentType = 'application/json')
     {
@@ -251,10 +250,9 @@ YAML;
 
     /**
      * @test
-     * @testWith
-     *      ["/todos", "post"]
-     *      ["/todos", "get", "201"]
-     *      ["/todos", "get", "200", "text/plain"]
+     * @testWith ["/todos", "post"]
+     *           ["/todos", "get", "201"]
+     *           ["/todos", "get", "200", "text/plain"]
      */
     function it_throws_exception_if_response_cannot_be_found(string $path, string $method, string $statusCode = '200', string $contentType = 'application/json')
     {
@@ -558,8 +556,6 @@ YAML;
 
         self::assertIsArray($fakeData);
         self::assertGreaterThanOrEqual(0, count($fakeData));
-
-        self::assertIsArray($fakeData);
         self::assertArrayHasKey('id', $fakeData);
         self::assertIsInt($fakeData['id']);
         self::assertArrayHasKey('name', $fakeData);

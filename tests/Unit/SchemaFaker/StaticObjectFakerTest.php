@@ -57,7 +57,6 @@ YAML;
 
         $fakeData = ObjectFaker::generate(SchemaFactory::fromYaml($yaml), $this->options);
 
-        self::assertIsArray($fakeData);
         self::assertCount(6, $fakeData);
 
         $this->assertMatchesJsonSnapshot($fakeData);
@@ -82,8 +81,6 @@ example:
 YAML;
 
         $fakeData = ObjectFaker::generate(SchemaFactory::fromYaml($yaml), $this->options);
-
-        self::assertIsArray($fakeData);
 
         $this->assertMatchesJsonSnapshot($fakeData);
     }

@@ -25,7 +25,7 @@ final class BooleanFaker
 
     private static function generateDynamic(Schema $schema): bool
     {
-        if ($schema->enum !== null) {
+        if (!empty($schema->enum)) {
             return Base::randomElement($schema->enum);
         }
 
@@ -46,7 +46,7 @@ final class BooleanFaker
             return null;
         }
 
-        if ($schema->enum !== null) {
+        if (!empty($schema->enum)) {
             $enums = $schema->enum;
 
             return reset($enums);

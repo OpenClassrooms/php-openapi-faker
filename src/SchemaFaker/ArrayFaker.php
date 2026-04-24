@@ -30,12 +30,10 @@ final class ArrayFaker
         }
 
         if ($options->getMinItems() && $minimum < $options->getMinItems()) {
-            /** @var int $minimum */
             $minimum = $options->getMinItems();
         }
 
         if ($options->getMaxItems() && $maximum > $options->getMaxItems()) {
-            /** @var int $maximum */
             $maximum = $options->getMaxItems();
 
             // Don't allow user to set min items above our maximum
@@ -57,7 +55,7 @@ final class ArrayFaker
                 continue;
             }
 
-            $uniqueData = array_unique($fakeData, is_array($fakeData[0]) ? SORT_REGULAR : SORT_STRING);
+            $uniqueData = array_unique($fakeData, SORT_REGULAR);
 
             if (count($uniqueData) > count($fakeData)) {
                 continue;

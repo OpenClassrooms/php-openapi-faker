@@ -24,7 +24,6 @@ use Vural\OpenAPIFaker\SchemaFaker\ResponseFaker;
 use Vural\OpenAPIFaker\SchemaFaker\SchemaFaker;
 
 use function array_key_exists;
-use function method_exists;
 use function strtolower;
 
 final class OpenAPIFaker
@@ -157,11 +156,12 @@ final class OpenAPIFaker
     public function setOptions(array $options): self
     {
         foreach ($options as $key => $value) {
-            if (! method_exists($this->options, 'set' . $key)) {
-                continue;
-            }
-
-            $this->options->{'set' . $key}($value);
+            match ($key) {
+                'minItems'            => $value !== null ? $this->options->setMinItems($value) : null,
+                'maxItems'            => $value !== null ? $this->options->setMaxItems($value) : null,
+                'alwaysFakeOptionals' => $this->options->setAlwaysFakeOptionals($value),
+                default               => $this->options->setStrategy($value),
+            };
         }
 
         return $this;

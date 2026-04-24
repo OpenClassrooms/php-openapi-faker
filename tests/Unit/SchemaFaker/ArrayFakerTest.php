@@ -12,7 +12,7 @@ use Vural\OpenAPIFaker\Tests\Unit\UnitTestCase;
 use function array_unique;
 use function count;
 use function mt_srand;
-use function Safe\sort;
+use function sort;
 
 use const MT_RAND_PHP;
 
@@ -160,7 +160,6 @@ YAML;
 JSON,
         ), $this->options);
 
-        self::assertIsArray($fakeData);
         self::assertCount(5, $fakeData);
         self::assertSame($fakeData, array_unique($fakeData));
     }
