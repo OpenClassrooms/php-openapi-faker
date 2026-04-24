@@ -9,6 +9,7 @@ use Faker\Provider\Base;
 use Vural\OpenAPIFaker\Options;
 
 use function array_unique;
+use function array_values;
 use function count;
 use function is_array;
 
@@ -63,7 +64,7 @@ final class ArrayFaker
 
             $i -= count($fakeData) - count($uniqueData);
 
-            $fakeData = $uniqueData;
+            $fakeData = array_values($uniqueData);
         }
 
         return $fakeData;
