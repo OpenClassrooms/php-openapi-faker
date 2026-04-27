@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.4.2",
         "ext-json": "*",
         "cebe/php-openapi": "^1.7",
         "fakerphp/faker": "^1.20",
