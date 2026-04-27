@@ -11,10 +11,8 @@ use Vural\OpenAPIFaker\Options;
 use function array_unique;
 use function array_values;
 use function count;
-use function is_array;
 
 use const SORT_REGULAR;
-use const SORT_STRING;
 
 /** @internal */
 final class ArrayFaker

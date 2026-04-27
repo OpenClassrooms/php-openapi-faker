@@ -28,7 +28,7 @@ final class NumberFaker
 
     private static function generateDynamic(Schema $schema): int|float|null
     {
-        if (!empty($schema->enum)) {
+        if (! empty($schema->enum)) {
             return Base::randomElement($schema->enum);
         }
 
@@ -65,7 +65,7 @@ final class NumberFaker
             return null;
         }
 
-        if (!empty($schema->enum)) {
+        if (! empty($schema->enum)) {
             $enums = $schema->enum;
 
             return reset($enums);

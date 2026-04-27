@@ -52,7 +52,7 @@ final class SchemaFaker
             return NumberFaker::generate($this->schema, $this->options);
         }
 
-        if (!empty($this->schema->properties)) {
+        if (! empty($this->schema->properties)) {
             return ObjectFaker::generate($this->schema, $this->options);
         }
 
