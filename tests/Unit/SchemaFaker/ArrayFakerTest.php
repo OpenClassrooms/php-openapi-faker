@@ -14,8 +14,6 @@ use function count;
 use function mt_srand;
 use function sort;
 
-use const MT_RAND_PHP;
-
 /**
  * @uses \Vural\OpenAPIFaker\SchemaFaker\SchemaFaker
  * @uses \Vural\OpenAPIFaker\SchemaFaker\StringFaker
