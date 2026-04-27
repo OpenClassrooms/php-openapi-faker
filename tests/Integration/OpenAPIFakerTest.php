@@ -79,7 +79,7 @@ JSON;
 
         $faker = OpenAPIFaker::createFromJson($specJson);
 
-        self::addToAssertionCount(1);
+        self::assertInstanceOf(OpenAPIFaker::class, $faker);
     }
 
     /**
@@ -134,7 +134,7 @@ YAML;
 
         $faker = OpenAPIFaker::createFromYaml($specYaml);
 
-        self::addToAssertionCount(1);
+        self::assertInstanceOf(OpenAPIFaker::class, $faker);
     }
 
     /**
@@ -190,7 +190,7 @@ YAML;
         $schema = new OpenApi(Yaml::parse($specYaml));
         $faker  = OpenAPIFaker::createFromSchema($schema);
 
-        self::addToAssertionCount(1);
+        self::assertInstanceOf(OpenAPIFaker::class, $faker);
     }
 
     /**
