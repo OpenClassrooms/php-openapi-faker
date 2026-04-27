@@ -12,13 +12,12 @@
     "require": {
         "php": "^8.0",
         "ext-json": "*",
-        "cebe/php-openapi": "^1.8",
+        "cebe/php-openapi": "^1.7",
         "fakerphp/faker": "^1.20",
         "league/openapi-psr7-validator": "^0.18",
         "thecodingmachine/safe": "^3.0"
     },
     "require-dev": {
-        "cweagans/composer-patches": "^1.7",
         "doctrine/coding-standard": "^11",
         "ergebnis/composer-normalize": "^2.29",
         "infection/infection": "^0.32",
@@ -27,16 +26,9 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5",
         "rector/rector": "^2.4",
-        "spatie/phpunit-snapshot-assertions": "^5.3",
+        "spatie/phpunit-snapshot-assertions": "^4.2",
         "symfony/var-dumper": "^6",
         "thecodingmachine/phpstan-safe-rule": "^1.4"
-    },
-    "extra": {
-        "patches": {
-            "cebe/php-openapi": {
-                "Fix PHP 8.4 implicit nullable parameter deprecations": "patches/cebe-php-openapi-php84-nullable.patch"
-            }
-        }
     },
     "prefer-stable": true,
     "autoload": {
@@ -55,8 +47,7 @@
             "infection/extension-installer": true,
             "ergebnis/composer-normalize": true,
             "phpstan/extension-installer": true,
-            "ocramius/package-versions": true,
-            "cweagans/composer-patches": true
+            "ocramius/package-versions": true
         },
         "sort-packages": true
     },
