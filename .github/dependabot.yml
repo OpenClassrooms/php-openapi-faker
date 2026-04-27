@@ -1,34 +1,44 @@
 version: 2
 updates:
-- package-ecosystem: composer
+- package-ecosystem: 'composer'
+  directory: '/'
+  schedule:
+    interval: 'weekly'
+  cooldown:
+    default-days: 1
+  ignore:
+    - dependency-name: '**'
+      update-types: ['version-update:semver-major']
+  versioning-strategy: increase
+  groups:
+    security-updates:
+      applies-to: security-updates
+      dependency-type: production
+    dependencies:
+      applies-to: version-updates
+      dependency-type: production
+      update-types:
+        - minor
+        - patch
+    phpstan-dependencies:
+      applies-to: version-updates
+      dependency-type: development
+      update-types:
+        - minor
+        - patch
+      patterns:
+        - 'phpstan/*'
+  open-pull-requests-limit: 5
+  labels:
+    - 'backend'
+    - 'dependencies'
+  assignees:
+    - chapter-backend
+  target-branch: "main"
+- package-ecosystem: github-actions
   directory: "/"
   schedule:
-    interval: daily
+    interval: weekly
     time: "04:00"
-  open-pull-requests-limit: 10
-  reviewers:
-  - canvural
-  assignees:
-  - canvural
-  versioning-strategy: increase
-  ignore:
-  - dependency-name: phpstan/phpstan
-    versions:
-    - 0.12.76
-    - 0.12.78
-    - 0.12.83
-    - 0.12.84
-  - dependency-name: league/openapi-psr7-validator
-    versions:
-    - "0.16"
-  - dependency-name: doctrine/coding-standard
-    versions:
-    - 9.0.0
-  - dependency-name: infection/infection
-    versions:
-    - 0.21.1
-    - 0.21.3
-    - 0.21.5
-  - dependency-name: fakerphp/faker
-    versions:
-    - 1.14.0
+  open-pull-requests-limit: 5
+  target-branch: "main"
