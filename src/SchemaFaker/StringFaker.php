@@ -38,15 +38,15 @@ final class StringFaker
 
     private static function generateDynamic(Schema $schema): string
     {
-        if ($schema->enum !== null) {
+        if (!empty($schema->enum)) {
             return Base::randomElement($schema->enum);
         }
 
-        if ($schema->format !== null) {
+        if (!empty($schema->format)) {
             return self::generateDynamicFromFormat($schema);
         }
 
-        if ($schema->pattern !== null) {
+        if (!empty($schema->pattern)) {
             return Lorem::regexify($schema->pattern);
         }
 
