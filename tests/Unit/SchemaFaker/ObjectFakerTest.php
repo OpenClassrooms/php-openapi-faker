@@ -96,7 +96,6 @@ YAML;
 
         $fakeData = ObjectFaker::generate(SchemaFactory::fromYaml($yaml), $this->options);
 
-        self::assertIsArray($fakeData);
         self::assertArrayHasKey('id', $fakeData);
         self::assertArrayHasKey('username', $fakeData);
         $this->assertMatchesJsonSnapshot($fakeData);
@@ -130,7 +129,6 @@ YAML;
 
         $fakeData = ObjectFaker::generate(SchemaFactory::fromYaml($yaml), $options);
 
-        self::assertIsArray($fakeData);
         self::assertCount(6, $fakeData);
 
         $this->assertMatchesJsonSnapshot($fakeData);
@@ -158,7 +156,6 @@ YAML;
 
         $fakeData = ObjectFaker::generate(SchemaFactory::fromYaml($yaml), $this->options, true);
 
-        self::assertIsArray($fakeData);
         self::assertArrayNotHasKey('id', $fakeData);
         self::assertArrayHasKey('username', $fakeData);
         self::assertArrayHasKey('password', $fakeData);
@@ -188,7 +185,6 @@ YAML;
 
         $fakeData = ObjectFaker::generate(SchemaFactory::fromYaml($yaml), $this->options);
 
-        self::assertIsArray($fakeData);
         self::assertArrayHasKey('id', $fakeData);
         self::assertArrayHasKey('username', $fakeData);
         self::assertArrayNotHasKey('password', $fakeData);

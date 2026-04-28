@@ -229,7 +229,7 @@ YAML;
         $fakeData = NumberFaker::generate(SchemaFactory::fromYaml($yaml), $this->options);
 
         self::assertIsFloat($fakeData);
-        self::assertSame(0, $fakeData % 8);
+        self::assertSame(0, (int) $fakeData % 8);
     }
 
     /** @test */

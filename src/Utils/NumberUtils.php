@@ -12,17 +12,13 @@ final class NumberUtils
     {
         if ($minimum === null) {
             $minimum = $sample;
+        } elseif ($minimum > $sample) {
+            $sample = $minimum;
         }
 
         if ($maximum === null) {
             $maximum = $minimum;
-        }
-
-        if ($minimum > $sample) {
-            $sample = $minimum;
-        }
-
-        if ($maximum < $sample) {
+        } elseif ($maximum < $sample) {
             $sample = $maximum;
         }
 

@@ -34,26 +34,29 @@ final class ObjectFaker
 
         $allPropertyKeys = array_merge($requiredKeys, $selectedOptionalKeys);
 
-        /** @var Schema $property */
         foreach ($schema->properties as $key => $property) {
-            if ($property instanceof Schema && (($request && $property->readOnly) || (! $request && $property->writeOnly))) {
+            if (! $property instanceof Schema) {
+                continue;
+            }
+
+            if (($request && $property->readOnly) || (! $request && $property->writeOnly)) {
                 continue;
             }
 
             if (
-                ! $options->getAlwaysFakeOptionals()
-                && ! $useStaticStrategy
+                ! $useStaticStrategy
+                && ! $options->getAlwaysFakeOptionals()
                 && ! in_array($key, $allPropertyKeys, true)
             ) {
                 continue;
             }
 
-            $value = (new SchemaFaker($property, $options))->generate();
+            $value = new SchemaFaker($property, $options)->generate();
 
             if (
-                ! $options->getAlwaysFakeOptionals()
-                && $useStaticStrategy
+                $useStaticStrategy
                 && $property->nullable
+                && ! $options->getAlwaysFakeOptionals()
             ) {
                 continue;
             }

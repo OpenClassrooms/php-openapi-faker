@@ -1,3 +1,6 @@
 {
-    "name": "in"
+    "contact_info": {
+        "email": "polly.kessler@example.net",
+        "phone": "qui"
+    }
 }

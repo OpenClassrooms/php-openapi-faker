@@ -11,9 +11,9 @@ use function sprintf;
 
 final class Options
 {
-    public const STRATEGY_STATIC = 'static';
+    public const string STRATEGY_STATIC = 'static';
 
-    public const STRATEGY_DYNAMIC = 'dynamic';
+    public const string STRATEGY_DYNAMIC = 'dynamic';
 
     private int|null $minItems = null;
 
@@ -23,23 +23,23 @@ final class Options
 
     private string $strategy = self::STRATEGY_DYNAMIC;
 
-    private const ALLOWED = [self::STRATEGY_STATIC, self::STRATEGY_DYNAMIC];
+    private const array ALLOWED = [self::STRATEGY_STATIC, self::STRATEGY_DYNAMIC];
 
-    public function setMinItems(int $minItems): Options
+    public function setMinItems(int $minItems): self
     {
         $this->minItems = $minItems;
 
         return $this;
     }
 
-    public function setMaxItems(int $maxItems): Options
+    public function setMaxItems(int $maxItems): self
     {
         $this->maxItems = $maxItems;
 
         return $this;
     }
 
-    public function setAlwaysFakeOptionals(bool $alwaysFakeOptionals): Options
+    public function setAlwaysFakeOptionals(bool $alwaysFakeOptionals): self
     {
         $this->alwaysFakeOptionals = $alwaysFakeOptionals;
 
@@ -47,7 +47,7 @@ final class Options
     }
 
     /** @throws InvalidArgumentException */
-    public function setStrategy(string $strategy): Options
+    public function setStrategy(string $strategy): self
     {
         if (! in_array($strategy, self::ALLOWED, true)) {
             throw new InvalidArgumentException(sprintf('Unknown generation strategy: %s', $strategy));

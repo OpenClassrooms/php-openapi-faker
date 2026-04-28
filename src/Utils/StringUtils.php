@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Vural\OpenAPIFaker\Utils;
 
+use Safe\Exceptions\MiscException;
+
 use function base_convert;
 use function ceil;
 use function implode;
@@ -17,6 +19,7 @@ use function substr;
 /** @internal */
 final class StringUtils
 {
+    /** @throws MiscException */
     public static function convertToBinary(string $text): string
     {
         $characters = str_split($text);

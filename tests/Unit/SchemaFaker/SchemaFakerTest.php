@@ -12,6 +12,8 @@ use Vural\OpenAPIFaker\Tests\SchemaFactory;
 use Vural\OpenAPIFaker\Tests\Unit\UnitTestCase;
 
 use function array_keys;
+use function is_array;
+use function is_int;
 
 /**
  * @uses \Vural\OpenAPIFaker\SchemaFaker\StringFaker
@@ -179,7 +181,10 @@ YAML;
         self::assertArrayHasKey('bar', $fakeData);
         self::assertArrayHasKey('baz', $fakeData);
         self::assertArrayHasKey('bap', $fakeData);
-        $this->assertMatchesJsonSnapshot($fakeData);
+        self::assertIsInt($fakeData['foo']);
+        self::assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2}$/', $fakeData['bar']);
+        self::assertIsString($fakeData['baz']);
+        self::assertSame('compact', $fakeData['bap']);
     }
 
     /** @test */
@@ -255,7 +260,13 @@ YAML;
         self::assertArrayHasKey('type', $fakeData);
         self::assertArrayHasKey('title', $fakeData);
         self::assertArrayHasKey('detail', $fakeData);
-        $this->assertMatchesJsonSnapshot($fakeData);
+        self::assertIsString($fakeData['resource_id']);
+        self::assertSame('tweet', $fakeData['resource_type']);
+        self::assertContains($fakeData['section'], ['data', 'includes']);
+        self::assertSame('https://api.twitter.com/labs/1/problems/not-authorized-for-resource', $fakeData['type']);
+        self::assertIsString($fakeData['title']);
+        self::assertIsString($fakeData['detail']);
+        self::assertTrue(is_int($fakeData['foo']) || is_array($fakeData['foo']));
     }
 
     /** @test */

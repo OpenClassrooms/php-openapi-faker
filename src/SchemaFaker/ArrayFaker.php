@@ -9,11 +9,10 @@ use Faker\Provider\Base;
 use Vural\OpenAPIFaker\Options;
 
 use function array_unique;
+use function array_values;
 use function count;
-use function is_array;
 
 use const SORT_REGULAR;
-use const SORT_STRING;
 
 /** @internal */
 final class ArrayFaker
@@ -30,12 +29,10 @@ final class ArrayFaker
         }
 
         if ($options->getMinItems() && $minimum < $options->getMinItems()) {
-            /** @var int $minimum */
             $minimum = $options->getMinItems();
         }
 
         if ($options->getMaxItems() && $maximum > $options->getMaxItems()) {
-            /** @var int $maximum */
             $maximum = $options->getMaxItems();
 
             // Don't allow user to set min items above our maximum
@@ -48,6 +45,10 @@ final class ArrayFaker
 
         $fakeData = [];
 
+        if (! $schema->items instanceof Schema) {
+            return $fakeData;
+        }
+
         $itemSchema = new SchemaFaker($schema->items, $options);
 
         for ($i = 0; $i < $itemSize; ++$i) {
@@ -57,7 +58,7 @@ final class ArrayFaker
                 continue;
             }
 
-            $uniqueData = array_unique($fakeData, is_array($fakeData[0]) ? SORT_REGULAR : SORT_STRING);
+            $uniqueData = array_unique($fakeData, SORT_REGULAR);
 
             if (count($uniqueData) > count($fakeData)) {
                 continue;
@@ -65,7 +66,7 @@ final class ArrayFaker
 
             $i -= count($fakeData) - count($uniqueData);
 
-            $fakeData = $uniqueData;
+            $fakeData = array_values($uniqueData);
         }
 
         return $fakeData;
