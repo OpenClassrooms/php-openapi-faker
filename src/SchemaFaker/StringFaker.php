@@ -74,12 +74,12 @@ final class StringFaker
         return match ($schema->format) {
             'date' => DateTime::date('Y-m-d', '2199-01-01'),
             'date-time' => DateTime::dateTime('2199-01-01 00:00:00')->format(DATE_RFC3339),
-            'email' => (new Internet(Factory::create()))->safeEmail(),
+            'email' => new Internet(Factory::create())->safeEmail(),
             'uuid' => Uuid::uuid(),
-            'uri' => (new Internet(Factory::create()))->url(),
-            'hostname' => (new Internet(Factory::create()))->domainName(),
-            'ipv4' => (new Internet(Factory::create()))->ipv4(),
-            'ipv6' => (new Internet(Factory::create()))->ipv6(),
+            'uri' => new Internet(Factory::create())->url(),
+            'hostname' => new Internet(Factory::create())->domainName(),
+            'ipv4' => new Internet(Factory::create())->ipv4(),
+            'ipv6' => new Internet(Factory::create())->ipv6(),
             'byte' => base64_encode(Lorem::word()),
             'binary' => StringUtils::convertToBinary(Lorem::word()),
             'password' => Base::asciify(str_repeat('*', $maxLength)),
@@ -128,7 +128,7 @@ final class StringFaker
 
         return match ($schema->format) {
             'date' => '2019-08-24',
-            'date-time' => (new \Safe\DateTime('2019-08-24T14:15:22'))->format(DATE_RFC3339),
+            'date-time' => new \Safe\DateTime('2019-08-24T14:15:22')->format(DATE_RFC3339),
             'email' => 'user@example.com',
             'uuid' => '095be615-a8ad-4c33-8e9c-c7612fbf6c9f',
             'uri' => 'http://example.com',

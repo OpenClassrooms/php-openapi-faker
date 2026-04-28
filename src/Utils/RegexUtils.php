@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Vural\OpenAPIFaker\Utils;
 
+use Safe\Exceptions\PcreException;
+
 use function explode;
 use function Safe\preg_replace;
 use function Safe\preg_replace_callback;
@@ -14,6 +16,7 @@ use function str_split;
 /** @internal */
 final class RegexUtils
 {
+    /** @throws PcreException */
     public static function generateSample(string $regex): string
     {
         // ditch the anchors

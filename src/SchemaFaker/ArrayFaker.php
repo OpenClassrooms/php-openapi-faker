@@ -45,6 +45,10 @@ final class ArrayFaker
 
         $fakeData = [];
 
+        if (! $schema->items instanceof Schema) {
+            return $fakeData;
+        }
+
         $itemSchema = new SchemaFaker($schema->items, $options);
 
         for ($i = 0; $i < $itemSize; ++$i) {

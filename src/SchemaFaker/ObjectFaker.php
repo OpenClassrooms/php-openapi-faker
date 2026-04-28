@@ -44,19 +44,19 @@ final class ObjectFaker
             }
 
             if (
-                ! $options->getAlwaysFakeOptionals()
-                && ! $useStaticStrategy
+                ! $useStaticStrategy
+                && ! $options->getAlwaysFakeOptionals()
                 && ! in_array($key, $allPropertyKeys, true)
             ) {
                 continue;
             }
 
-            $value = (new SchemaFaker($property, $options))->generate();
+            $value = new SchemaFaker($property, $options)->generate();
 
             if (
-                ! $options->getAlwaysFakeOptionals()
-                && $useStaticStrategy
+                $useStaticStrategy
                 && $property->nullable
+                && ! $options->getAlwaysFakeOptionals()
             ) {
                 continue;
             }

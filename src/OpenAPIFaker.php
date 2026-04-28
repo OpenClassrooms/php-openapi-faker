@@ -46,7 +46,7 @@ final class OpenAPIFaker
     public static function createFromJson(string $json): self
     {
         $instance                = new self();
-        $instance->openAPISchema = (new LeagueOpenAPI\SchemaFactory\JsonFactory($json))->createSchema();
+        $instance->openAPISchema = new LeagueOpenAPI\SchemaFactory\JsonFactory($json)->createSchema();
 
         return $instance;
     }
@@ -58,7 +58,7 @@ final class OpenAPIFaker
     public static function createFromYaml(string $yaml): self
     {
         $instance                = new self();
-        $instance->openAPISchema = (new LeagueOpenAPI\SchemaFactory\YamlFactory($yaml))->createSchema();
+        $instance->openAPISchema = new LeagueOpenAPI\SchemaFactory\YamlFactory($yaml)->createSchema();
 
         return $instance;
     }
@@ -74,6 +74,7 @@ final class OpenAPIFaker
     /**
      * @throws NoPath
      * @throws NoRequest
+     * @throws NoExample
      */
     public function mockRequest(
         string $path,
@@ -82,7 +83,7 @@ final class OpenAPIFaker
     ): mixed {
         $content = $this->findContentForRequest($path, $method, $contentType);
 
-        return (new RequestFaker($content, $this->options))->generate();
+        return new RequestFaker($content, $this->options)->generate();
     }
 
     /**
@@ -98,12 +99,13 @@ final class OpenAPIFaker
     ): mixed {
         $content = $this->findContentForRequest($path, $method, $contentType);
 
-        return (new RequestFaker($content, $this->options))->generate($exampleName);
+        return new RequestFaker($content, $this->options)->generate($exampleName);
     }
 
     /**
      * @throws NoPath
      * @throws NoResponse
+     * @throws NoExample
      */
     public function mockResponse(
         string $path,
@@ -113,7 +115,7 @@ final class OpenAPIFaker
     ): mixed {
         $content = $this->findContentForResponse($path, $method, $statusCode, $contentType);
 
-        return (new ResponseFaker($content, $this->options))->generate();
+        return new ResponseFaker($content, $this->options)->generate();
     }
 
     /**
@@ -130,7 +132,7 @@ final class OpenAPIFaker
     ): mixed {
         $content = $this->findContentForResponse($path, $method, $statusCode, $contentType);
 
-        return (new ResponseFaker($content, $this->options))->generate($exampleName);
+        return new ResponseFaker($content, $this->options)->generate($exampleName);
     }
 
     /** @throws Exception */
@@ -138,7 +140,7 @@ final class OpenAPIFaker
     {
         $schema = $this->findComponentSchema($schemaName);
 
-        return (new SchemaFaker($schema, $this->options))->generate();
+        return new SchemaFaker($schema, $this->options)->generate();
     }
 
     /** @throws Exception */
@@ -153,7 +155,7 @@ final class OpenAPIFaker
         return $schema->example;
     }
 
-    /** @param array{minItems?:?int, maxItems?:?int, alwaysFakeOptionals?:bool, strategy?:string} $options */
+    /** @param array{minItems?:int|null, maxItems?:int|null, alwaysFakeOptionals?:bool, strategy?:string} $options */
     public function setOptions(array $options): self
     {
         $knownKeys = ['minItems' => 1, 'maxItems' => 1, 'alwaysFakeOptionals' => 1, 'strategy' => 1];
@@ -174,7 +176,7 @@ final class OpenAPIFaker
     private function findOperation(string $path, string $method): Operation
     {
         try {
-            $operation = (new LeagueOpenAPI\SpecFinder($this->openAPISchema))
+            $operation = new LeagueOpenAPI\SpecFinder($this->openAPISchema)
                 ->findOperationSpec(new LeagueOpenAPI\OperationAddress($path, strtolower($method)));
         } catch (LeagueOpenAPI\Exception\NoPath) {
             throw NoPath::forPathAndMethod($path, $method);
@@ -257,6 +259,12 @@ final class OpenAPIFaker
             throw NoSchema::forComponentName($schemaName);
         }
 
-        return $this->openAPISchema->components->schemas[$schemaName];
+        $schema = $this->openAPISchema->components->schemas[$schemaName];
+
+        if (! $schema instanceof Schema) {
+            throw NoSchema::forComponentName($schemaName);
+        }
+
+        return $schema;
     }
 }

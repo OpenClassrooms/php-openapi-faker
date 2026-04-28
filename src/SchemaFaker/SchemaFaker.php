@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Vural\OpenAPIFaker\SchemaFaker;
 
+use cebe\openapi\exceptions\TypeErrorException;
 use cebe\openapi\spec\Schema;
 use Faker\Provider\Base;
+use Safe\Exceptions\JsonException;
 use Vural\OpenAPIFaker\Options;
 
 use function array_key_exists;
@@ -23,7 +25,11 @@ final class SchemaFaker
 {
     private Schema $schema;
 
-    public function __construct(Schema $schema, private Options $options, private bool $request = false)
+    /**
+     * @throws TypeErrorException
+     * @throws JsonException
+     */
+    public function __construct(Schema $schema, private readonly Options $options, private readonly bool $request = false)
     {
         $schemaData   = json_decode(json_encode($schema->getSerializableData()), true);
         $this->schema = new Schema($this->resolveOfConstraints($schemaData, $options));
